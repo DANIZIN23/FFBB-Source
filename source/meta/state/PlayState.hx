@@ -409,6 +409,11 @@ class PlayState extends MusicBeatState
 		startingSong = true;
 		startedCountdown = true;
 
+		#if android
+		addAndroidControls();
+		androidControls.visible = true;
+		#end
+		
 		//
 		var placement = (FlxG.width / 2);
 		dadStrums = new Strumline(placement - (FlxG.width / 4), this, dadOpponent, false, true, false, 4, Init.trueSettings.get('Downscroll'));
