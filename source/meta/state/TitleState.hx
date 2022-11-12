@@ -92,19 +92,6 @@ class TitleState extends MusicBeatState
 		titleImage = "freaky";
 		super.create();
 
-		if (!initialized)
-		{
-			#if !html5
-			
-			#end
-		}
-		else
-		{
-			#if !html5
-			
-			#end
-		}
-
 		persistentUpdate = true;
 
 		GameOverSubstate.fishHadEnough = 0;
@@ -264,6 +251,10 @@ class TitleState extends MusicBeatState
 
 		updateSelection();
 
+		#if android
+		addVirtualPad(LEFT_FULL, A);
+		#end
+
 		if (isMainMenu && initialized)
 			backToMain();
 		else
@@ -338,9 +329,9 @@ class TitleState extends MusicBeatState
 				if (curSelected == 0)
 				{
 					diffText.visible = true;
-					if (controls.LEFT_P)
+					if (controls.UI_LEFT_P)
 						changeDiff(1);
-					if (controls.RIGHT_P)
+					if (controls.UI_RIGHT_P)
 						changeDiff(-1);
 				}
 				else
@@ -362,12 +353,8 @@ class TitleState extends MusicBeatState
 
 		#if android
 		for (touch in FlxG.touches.list)
-		{
 			if (touch.justPressed)
-			{
 				pressedEnter = true;
-			}
-		}
 		#end
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
@@ -468,8 +455,8 @@ class TitleState extends MusicBeatState
 
 		var up = controls.UP;
 		var down = controls.DOWN;
-		var up_p = controls.UP_P;
-		var down_p = controls.DOWN_P;
+		var up_p = controls.UI_UP_P;
+		var down_p = controls.UI_DOWN_P;
 		var controlArray:Array<Bool> = [up, down, up_p, down_p];
 
 		if ((controlArray.contains(true)) && (!selectedSomethin) && (isMainMenu))
@@ -592,13 +579,14 @@ class TitleState extends MusicBeatState
 		warningText.antialiasing = true;
 		warningText.screenCenter();
 		add(warningText);
+
+		#if android
+		addVirtualPad(NONE, B);
+		#end
 	}
 
 	function mainMenuSwitch()
 	{
-		#if !html5
-		
-		#end
 		FlxTween.tween(logoBl, {y: -1000}, 1.2, {ease: FlxEase.backIn, onComplete: function(tween:FlxTween)
 		{
 			menuItems.forEach(function (spr:FlxSprite)
