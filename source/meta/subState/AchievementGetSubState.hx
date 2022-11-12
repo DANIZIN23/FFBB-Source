@@ -27,7 +27,7 @@ class AchievementGetSubState extends MusicBeatSubState
         super();
 
 		#if !html5
-		Discord.changePresence('Earned An Anchievement: ' + getAchievementName(), iconRPC, " ", PlayState.curImage);
+		
 		#end
 
 		earned = new FlxSound().loadEmbedded(Paths.sound('earnedAchievement'));
