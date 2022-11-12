@@ -193,7 +193,11 @@ class FreeplayState extends MusicBeatState
 		selector.text = ">";
 		// add(selector);
 
-		bubbles = new FlxTypedGroup<FlxEmitter>();
+		#if android
+		addVirtualPad(LEFT_FULL, A_B);
+		#end	
+		
+			bubbles = new FlxTypedGroup<FlxEmitter>();
 
 		for (i in 0...5)
 		{
@@ -249,8 +253,8 @@ class FreeplayState extends MusicBeatState
 		///*
 		var coolDifficultyArray = [];
 		for (i in CoolUtil.difficultyArray)
-			if (FileSystem.exists(Paths.songJson(songName, songName + '-' + i))
-				|| (FileSystem.exists(Paths.songJson(songName, songName)) && i == "NORMAL"))
+			if (Assets.exists(Paths.songJson(songName, songName + '-' + i))
+				|| (Assets.exists(Paths.songJson(songName, songName)) && i == "NORMAL"))
 				coolDifficultyArray.push(i);
 
 		if (coolDifficultyArray.length > 0)
