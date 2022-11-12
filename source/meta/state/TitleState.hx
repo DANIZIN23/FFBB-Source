@@ -360,7 +360,7 @@ class TitleState extends MusicBeatState
 			});
 		}
 
-		#if mobile
+		#if android
 		for (touch in FlxG.touches.list)
 		{
 			if (touch.justPressed)
