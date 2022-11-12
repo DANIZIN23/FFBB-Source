@@ -1400,12 +1400,12 @@ class PlayState extends MusicBeatState
 		if (underwearHealth > -2)
 		{
 			if (Conductor.songPosition > 0 && !pausedRPC)
-				
-			
-				
-		
-		
-	
+				Discord.changePresence(displayRPC, detailsSub, iconRPC, true, songLength - Conductor.songPosition);
+			else
+				Discord.changePresence(displayRPC, detailsSub, iconRPC);
+		}
+		#end
+	}
 
 	var animationsPlay:Array<Note> = [];
 
