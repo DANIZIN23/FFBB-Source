@@ -110,7 +110,7 @@ class FreeplayState extends MusicBeatState
 		// ForeverTools.resetMenuMusic();
 
 		#if !html5 
-		Discord.changePresence('Ordering A Battle', 'Freeplay', " ", TitleState.titleImage);
+		
 		#end
 
 		// LOAD CHARACTERS
