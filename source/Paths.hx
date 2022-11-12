@@ -15,6 +15,7 @@ import openfl.system.System;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 import sys.FileSystem;
+import openfl.utils.Assets;
 import sys.io.File;
 
 class Paths
@@ -117,7 +118,7 @@ class Paths
 	public static function returnGraphic(key:String, ?library:String, ?textureCompression:Bool = false)
 	{
 		var path = getPath('images/$key.png', IMAGE, library);
-		if (FileSystem.exists(path))
+		if (Assets.exists(path))
 		{
 			if (!currentTrackedAssets.exists(key))
 			{
@@ -219,7 +220,7 @@ class Paths
 
 	inline static function getPreloadPath(file:String) {
 		var returnPath:String = 'assets/$file';
-		if (!FileSystem.exists(returnPath))
+		if (!Assets.exists(returnPath))
 			returnPath = CoolUtil.swapSpaceDash(returnPath);
 		return returnPath;
 	}
@@ -284,7 +285,7 @@ class Paths
 
 	inline static public function getSparrowAtlas(key:String, ?library:String) {
 		var graphic:FlxGraphic = returnGraphic(key, library);
-		return (FlxAtlasFrames.fromSparrow(graphic, File.getContent(file('images/$key.xml', library))));
+		return (FlxAtlasFrames.fromSparrow(graphic, Assets.getText(file('images/$key.xml', library))));
 	}
 
 	inline static public function getPackerAtlas(key:String, ?library:String)
