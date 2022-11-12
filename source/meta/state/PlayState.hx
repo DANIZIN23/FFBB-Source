@@ -1401,11 +1401,11 @@ class PlayState extends MusicBeatState
 		{
 			if (Conductor.songPosition > 0 && !pausedRPC)
 				
-		else	
+			
 				
-		}
-		#end
-	}
+		
+		
+	
 
 	var animationsPlay:Array<Note> = [];
 
