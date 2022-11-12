@@ -1394,7 +1394,7 @@ class PlayState extends MusicBeatState
 
 	public static function updateRPC(pausedRPC:Bool)
 	{
-		#if android
+		#if desktop
 		var displayRPC:String = (pausedRPC) ? detailsPausedText : songDetails;
 
 		if (underwearHealth > -2)
