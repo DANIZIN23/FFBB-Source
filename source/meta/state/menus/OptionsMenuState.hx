@@ -46,17 +46,13 @@ class OptionsMenuState extends MusicBeatState
 
 		// NOTE : Make sure to check Init.hx if you are trying to add options.
 
-		#if !html5
-		Discord.changePresence('Changing Options', 'Option Menu', " ", TitleState.titleImage);
-		#end
-
 		categoryMap = [
 			'main' => [
 				[
 					['Gameplay', callNewGroup],
 					['Accessibility', callNewGroup],
-					#if android ['android controls', openAndroidControlmenu],#end
-                    ['Controls', openControlmenu],
+					['Controls', openControlmenu],
+          #if android ['android controls', openAndroidControlmenu],#end
 					['Exit', exitMenu]
 				]
 			],
@@ -131,33 +127,15 @@ class OptionsMenuState extends MusicBeatState
 		add(infoText);
 
 		loadSubgroup('main');
-	
-        #if android
+
+		#if android
 		addVirtualPad(LEFT_FULL, A_B);
 		#end
-   }
+	}
 
 	private var currentAttachmentMap:Map<FlxText, Dynamic>;
 
-	#if android
-	public function openAndroidControlmenu()
-	{
-		if (controls.ACCEPT)
-		{
-			FlxG.sound.play(Paths.sound('confirmMenu'));
-			lockedMovement = true;
-			FlxFlicker.flicker(activeSubgroup.members[curSelection], 0.5, 0.06 * 2, true, false, function(flick:FlxFlicker)
-			{
-				#if android
-				removeVirtualPad();
-				#end
-				openSubState(new android.AndroidControlsSubState());
-				lockedMovement = false;
-			});
-		}
-	}
-	#end
-function loadSubgroup(subgroupName:String)
+	function loadSubgroup(subgroupName:String)
 	{
 		// unlock the movement
 		lockedMovement = false;
@@ -336,8 +314,8 @@ function loadSubgroup(subgroupName:String)
 	{
 		var up = controls.UP;
 		var down = controls.DOWN;
-		var up_p = controls.UP_P;
-		var down_p = controls.DOWN_P;
+		var up_p = controls.UI_UP_P;
+		var down_p = controls.UI_DOWN_P;
 		var controlArray:Array<Bool> = [up, down, up_p, down_p];
 
 		if (controlArray.contains(true))
@@ -474,9 +452,9 @@ function loadSubgroup(subgroupName:String)
 					if (!controls.RIGHT)
 						selector.selectorPlay('right');
 
-					if (controls.RIGHT_P)
+					if (controls.UI_RIGHT_P)
 						updateSelector(selector, 1);
-					else if (controls.LEFT_P)
+					else if (controls.UI_LEFT_P)
 						updateSelector(selector, -1);
 					#end
 				default:
@@ -563,6 +541,23 @@ function loadSubgroup(subgroupName:String)
 			});
 		}
 	}
+
+	#if android
+	public function openAndroidControlmenu()
+	{
+		if (controls.ACCEPT)
+		{
+			FlxG.sound.play(Paths.sound('confirmMenu'));
+			lockedMovement = true;
+			FlxFlicker.flicker(activeSubgroup.members[curSelection], 0.5, 0.06 * 2, true, false, function(flick:FlxFlicker)
+			{
+				
+				openSubState(new android.AndroidControlsSubState());
+				lockedMovement = false;
+			});
+		}
+	}
+	#end
 
 	public function openControlmenu()
 	{
