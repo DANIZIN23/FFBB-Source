@@ -5,9 +5,9 @@ import meta.state.PlayState;
 
 using StringTools;
 
-
+#if !html5
 import sys.FileSystem;
-
+#end
 
 class CoolUtil
 {
@@ -64,19 +64,19 @@ class CoolUtil
 	{
 		var libraryArray:Array<String> = [];
 
-		for (folder in Assets.list().filter(files -> files.contains('$subDir/$library')))
+		#if desktop
+		var unfilteredLibrary = FileSystem.readDirectory('$subDir/$library');
+
+		for (folder in unfilteredLibrary)
 		{
-			// simulating da FileSystem.readDirectory?
-			var daFolder:String = folder.replace('$subDir/$library', '');
-			daFolder = daFolder.replace(daFolder.substring(daFolder.indexOf('/'), daFolder.length), ''); // fancy
-			if (!daFolder.startsWith('.') && !libraryArray.contains(daFolder))
-				libraryArray.push(daFolder);
+			if (!folder.contains('.'))
+				libraryArray.push(folder);
 		}
+		#end
 
 		return libraryArray;
 	}
 
-	
 	public static function getAnimsFromTxt(path:String):Array<Array<String>>
 	{
 		var fullText:String = Assets.getText(path);
